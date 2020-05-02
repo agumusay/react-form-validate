@@ -15,14 +15,15 @@
   &-input {
     margin-top: 10px;
     margin-bottom: 15px;
-    height: 30px;
+    height: 40px;
   }
   &-button {
-    background: rgb(0, 162, 255);
+    background: rgb(102, 117, 249);
     border: none;
     color: white;
     font-weight: bold;
     height: 40px;
+    font-size: 0.9rem;
   }
   &-error {
     margin-bottom: 15px;
@@ -31,9 +32,9 @@
   }
   &-eye {
     position: absolute;
-    width: 40px;
+    width: 45px;
     right: 1px;
-    top: 30.5px;
+    top: 33.5px;
     z-index: 5;
   }
 }
