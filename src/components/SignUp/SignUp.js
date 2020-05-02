@@ -1,6 +1,7 @@
 import React from "react";
 import "./SignUp.scss";
 import eye from "./eye1.gif";
+import validate from "../../helpers/validate";
 
 class SignUp extends React.Component {
   state = {
@@ -17,43 +18,22 @@ class SignUp extends React.Component {
     });
   };
 
-  validateForm = (username, password) => {
-    // error is empty string
-    let errorString = "";
+  signupClickHandler = (e) => {
+    e.preventDefault();
+    this.error = validate(this.state.username, this.state.password);
     let user = this.state.username.split("@")[0];
-    let userFinal = user.charAt(0).toUpperCase() + user.slice(1);
-
-    //set error depending on criteria from last to first
-    if (password.includes(username.split("@")[0])) errorString = "Cannot contain the username";
-    if (password.length < 8) errorString = "Password must be at least 8 characters long";
-    if (!/(?=[^!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]*[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~])/.test(password))
-      errorString = "Must contain at least 1 special Character";
-    if (!/([0-9]+)/g.test(password)) errorString = "Must contain at least 1 digit";
-    if (!/([A-Z]+)/g.test(password)) errorString = "Must contain at least 1 capital letter";
-    if (!password) errorString = "Password is required";
-    if (!username.includes("@") && !username.indexOf("@") >= 0)
-      errorString = "Username must be a valid email";
-    if (!username) errorString = "Username is required";
-
-    //this.state.errorMsg becomes errorString
-    //isValidForm is true only when errorString is not empty
-    //After we set the state Send the value to the parent via props .
+    let userUpperCase = user.charAt(0).toUpperCase() + user.slice(1);
     this.setState(
       {
-        errorMsg: errorString,
-        isValidForm: !errorString && true,
+        errorMsg: this.error,
+        isValidForm: !this.error && true,
       },
       () => {
-        if (this.props.validate) {
-          this.props.validate(this.state.isValidForm, userFinal);
+        if (this.props.validForm) {
+          this.props.validForm(this.state.isValidForm, userUpperCase);
         }
       }
     );
-  };
-
-  signupClickHandler = (e) => {
-    e.preventDefault();
-    this.validateForm(this.state.username, this.state.password);
   };
 
   showClickHandler = () => {
@@ -61,6 +41,7 @@ class SignUp extends React.Component {
       show: !this.state.show,
     });
   };
+
   render() {
     return (
       <form action="" className="signup">
