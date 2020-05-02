@@ -2,6 +2,7 @@ import React from "react";
 import "./SignUp.scss";
 import eye from "./eye1.gif";
 import validate from "../../helpers/validate";
+import getUserNameFromEmail from "../../helpers/getNameFromEmail";
 
 class SignUp extends React.Component {
   state = {
@@ -18,25 +19,22 @@ class SignUp extends React.Component {
     });
   };
 
-  signupClickHandler = (e) => {
+  onClickHandler = (e) => {
     e.preventDefault();
     this.error = validate(this.state.username, this.state.password);
-    let user = this.state.username.split("@")[0];
-    let userUpperCase = user.charAt(0).toUpperCase() + user.slice(1);
+    this.userName = getUserNameFromEmail(this.state.username);
     this.setState(
       {
         errorMsg: this.error,
         isValidForm: !this.error && true,
       },
       () => {
-        if (this.props.validForm) {
-          this.props.validForm(this.state.isValidForm, userUpperCase);
-        }
+        this.props.childCallback(this.state.isValidForm, this.userUpperCase);
       }
     );
   };
 
-  showClickHandler = () => {
+  showPassword = () => {
     this.setState({
       show: !this.state.show,
     });
@@ -65,10 +63,10 @@ class SignUp extends React.Component {
             className="signup-input"
             onChange={this.onChangeHandler}
           />
-          <img src={eye} alt="" className="signup-eye" onClick={this.showClickHandler} />
+          <img src={eye} alt="" className="signup-eye" onClick={this.showPassword} />
         </label>
         {this.state.errorMsg ? <p className="signup-error">{this.state.errorMsg}</p> : ""}
-        <button className="signup-button" onClick={this.signupClickHandler}>
+        <button className="signup-button" onClick={this.onClickHandler}>
           SIGN UP
         </button>
       </form>

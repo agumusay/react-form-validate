@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {!this.state.success ? (
-          <SignUp validForm={this.isFormValid} />
+          <SignUp childCallback={this.isFormValid} />
         ) : (
           <Message user={this.state.username} />
         )}
