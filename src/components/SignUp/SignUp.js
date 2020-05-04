@@ -1,16 +1,16 @@
-import React from "react";
-import "./SignUp.scss";
-import eye from "./eye1.gif";
-import validate from "../../helpers/validate";
-import getUserNameFromEmail from "../../helpers/getNameFromEmail";
+import React from 'react';
+import './SignUp.scss';
+import eye from './eye1.gif';
+import validate from '../../helpers/validate';
+import getUserNameFromEmail from '../../helpers/getNameFromEmail';
 
 class SignUp extends React.Component {
   state = {
-    username: "",
-    password: "",
+    email: '',
+    password: '',
     isValidForm: false,
-    errorMsg: "",
-    show: "false",
+    errorMsg: '',
+    show: 'false',
   };
 
   onChangeHandler = (e) => {
@@ -21,16 +21,16 @@ class SignUp extends React.Component {
 
   onClickHandler = (e) => {
     e.preventDefault();
-    this.error = validate(this.state.username, this.state.password);
-    this.userName = getUserNameFromEmail(this.state.username);
+    this.error = validate(this.state.email, this.state.password);
+    this.username = getUserNameFromEmail(this.state.email);
     this.setState(
       {
         errorMsg: this.error,
         isValidForm: !this.error && true,
       },
       () => {
-        this.props.childCallback(this.state.isValidForm, this.userUpperCase);
-      }
+        this.props.childCallback(this.state.isValidForm, this.username);
+      },
     );
   };
 
@@ -44,12 +44,12 @@ class SignUp extends React.Component {
     return (
       <form action="" className="signup">
         <p className="signup-title">Sign up</p>
-        <label htmlFor="username" className="signup-label">
-          Username
+        <label htmlFor="email" className="signup-label">
+          Email
           <input
             type="text"
-            name="username"
-            id="username"
+            name="email"
+            id="email"
             className="signup-input"
             onChange={this.onChangeHandler}
           />
@@ -57,7 +57,7 @@ class SignUp extends React.Component {
         <label htmlFor="password" className="signup-label">
           Password
           <input
-            type={!this.state.show ? "text" : "password"}
+            type={!this.state.show ? 'text' : 'password'}
             name="password"
             id="password"
             className="signup-input"
@@ -65,7 +65,7 @@ class SignUp extends React.Component {
           />
           <img src={eye} alt="" className="signup-eye" onClick={this.showPassword} />
         </label>
-        {this.state.errorMsg ? <p className="signup-error">{this.state.errorMsg}</p> : ""}
+        {this.state.errorMsg ? <p className="signup-error">{this.state.errorMsg}</p> : ''}
         <button className="signup-button" onClick={this.onClickHandler}>
           SIGN UP
         </button>
