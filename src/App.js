@@ -1,13 +1,13 @@
-import React from "react";
-import "./App.scss";
-import SignUp from "./components/SignUp/SignUp";
-import Message from "./components/message/message";
+import React from 'react';
+import './App.scss';
+import SignUp from './components/SignUp/SignUp';
+import Message from './components/message/message';
 
 class App extends React.Component {
-  state = { success: false, username: "" };
-  isFormValid = (valid, userFromChild) => {
+  state = { success: false, username: '' };
+  parentFunc = (userFromChild) => {
     this.setState({
-      success: valid,
+      success: true,
       username: userFromChild,
     });
   };
@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <div className="App">
         {!this.state.success ? (
-          <SignUp childCallback={this.isFormValid} />
+          <SignUp childCallback={this.parentFunc} />
         ) : (
           <Message user={this.state.username} />
         )}

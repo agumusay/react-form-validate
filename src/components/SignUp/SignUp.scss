@@ -32,8 +32,13 @@
     font-size: 0.9rem;
   }
   &-eye {
+    background-image: url('./eye1.gif');
+    background-size: cover;
+    background-position: center;
+    border: none;
     position: absolute;
     width: 45px;
+    height: 30px;
     right: 1px;
     top: 33.5px;
     z-index: 5;
